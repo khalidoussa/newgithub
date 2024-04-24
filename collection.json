@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "739ac342-4d23-4624-8ffc-774d4848dfcf",
+		"name": "reqres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26966665"
+	},
+	"item": [
+		{
+			"name": "lister",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('prenom','maurice')\r",
+							"pm.collectionVariables.set('metier','Test engineer')\r",
+							"pm.variables.set('job', 'QA')\r",
+							"pm.environment.set('urlBase', 'https://reqres.in/api')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let reponse = pm.response.json()\r",
+							"pm.test('code status', function(){\r",
+							"    pm.expect(pm.response.code).eq(201)\r",
+							"})\r",
+							"pm.test('check name', function(){\r",
+							"    pm.expect(reponse.name).equal('maurice')\r",
+							"})\r",
+							"pm.test('check job', function(){\r",
+							"    pm.expect(reponse.job).equal('QA')\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{prenom}}\",\r\n    \"job\": \"{{job}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlBase}}/users",
+					"host": [
+						"{{urlBase}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer - variables",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set('prenom','maurice')\r",
+							"pm.collectionVariables.set('metier','Test engineer')\r",
+							"pm.variables.set('job', 'QA')\r",
+							"pm.environment.set('urlBase', 'https://reqres.in/api')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test('code status' , function(){\r",
+							"    pm.expect(pm.response.code).eq(201)\r",
+							"})\r",
+							"\r",
+							"pm.test('check name' , function(){\r",
+							"    pm.expect(jsonData.name).equal(pm.globals.get('prenom'))\r",
+							"})\r",
+							"\r",
+							"pm.test('check job' , function(){\r",
+							"    pm.expect(jsonData.job).equal(pm.variables.get('job'))\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{prenom}}\",\r\n    \"job\": \"{{job}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlBase}}/users",
+					"host": [
+						"{{urlBase}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer - random",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set('prenom' , pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+							"\r",
+							"pm.variables.set('metier' , pm.variables.replaceIn('{{$randomJobTitle}}'));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test('code status' , function(){\r",
+							"    pm.expect(pm.response.code).eq(201)\r",
+							"})\r",
+							"\r",
+							"pm.test('check name' , function(){\r",
+							"    pm.expect(jsonData.name).equal(pm.variables.get('prenom'))\r",
+							"})\r",
+							"\r",
+							"pm.test('check job' , function(){\r",
+							"    pm.expect(jsonData.job).equal(pm.variables.get('metier'))\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{prenom}}\",\r\n    \"job\": \"{{metier}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlBase}}/users",
+					"host": [
+						"{{urlBase}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifier",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Khalid\",\r\n    \"job\": \"test lead\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "metier",
+			"value": ""
+		}
+	]
+}
