@@ -17,5 +17,5 @@ jobs:
       - name: executer la collection postman
         run: newman run collection.json
         
-      - name: newman run notre 
+      - name: newman run notre collection
         run: newman run collection.json --reporters=cli,htmlextra
